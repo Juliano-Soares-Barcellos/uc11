@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ProdutosDAO {
 
@@ -31,20 +33,33 @@ public class ProdutosDAO {
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
 
     public void cadastrarProduto(ProdutosDTO produto) {
-        try {
+        try 
+        {
            // con = conexao.connectDB();
             stm = con.createStatement();
             stm.executeUpdate("INSERT INTO produtos (Nome, Valor, Status) VALUES ('" + produto.getNome() + "', '" + produto.getValor() + "', '" + produto.getStatus() + "')");
-            System.out.println("Dados inseridos.");
-        } catch (SQLException sqle) {
-            System.out.println("Erro inserindo: " + sqle.getMessage());
+            JOptionPane.showMessageDialog(null,"Dados inseridos.");
+        }
+        catch (SQLException sqle) 
+        {
+            JOptionPane.showMessageDialog(null, "Erro inserindo: " + sqle.getMessage());
 
         }
     }
 
-    public ArrayList<ProdutosDTO> listarProdutos() {
-
-        return listagem;
+    
+    
+    public ResultSet listarProdutos() {
+           try {
+                stm = con.createStatement();
+            return stm.executeQuery("SELECT * FROM produtos");
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        return null;
     }
+      
+  }
 
-}
+
