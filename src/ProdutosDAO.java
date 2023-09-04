@@ -72,7 +72,7 @@ public class ProdutosDAO {
 }
 
 
-    public ResultSet listarProdutos() {
+    public ResultSet listarProdutosVendidos() {
         try 
         {
             stm = con.createStatement();

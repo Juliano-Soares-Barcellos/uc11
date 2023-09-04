@@ -97,9 +97,7 @@ public class Vendas extends javax.swing.JFrame {
             model.addColumn("Nome");
             model.addColumn("Valor");
             model.addColumn("Status");
-            
-            ResultSet rs = produtosdao.listarProdutos();
-            
+            ResultSet rs = produtosdao.listarProdutosVendidos();
             while(rs.next()){
                 model.addRow(new Object[]{
                     rs.getInt("id"),
@@ -108,7 +106,9 @@ public class Vendas extends javax.swing.JFrame {
                     rs.getString("Status")
                 });
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
       JOptionPane.showMessageDialog(null,"Erro ao listar produtos, motivo" + e.getMessage());
         
         }
