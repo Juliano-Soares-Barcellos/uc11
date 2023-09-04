@@ -98,7 +98,7 @@ public class Vendas extends javax.swing.JFrame {
             model.addColumn("Valor");
             model.addColumn("Status");
             
-            ResultSet rs = produtosdao.listarProdutos();
+            ResultSet rs = produtosdao.listarProdutosVendidos();
             
             while(rs.next()){
                 model.addRow(new Object[]{
