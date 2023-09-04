@@ -30,36 +30,43 @@ public class ProdutosDAO {
         this.con = this.conexao.connectDB();
     }
 
-    ArrayList<ProdutosDTO> listagem = new ArrayList<>();
-
     public void cadastrarProduto(ProdutosDTO produto) {
         try 
         {
-           // con = conexao.connectDB();
             stm = con.createStatement();
             stm.executeUpdate("INSERT INTO produtos (Nome, Valor, Status) VALUES ('" + produto.getNome() + "', '" + produto.getValor() + "', '" + produto.getStatus() + "')");
-            JOptionPane.showMessageDialog(null,"Dados inseridos.");
-        }
+            JOptionPane.showMessageDialog(null, "Dados inseridos.");
+        } 
         catch (SQLException sqle) 
         {
             JOptionPane.showMessageDialog(null, "Erro inserindo: " + sqle.getMessage());
-
         }
     }
 
-    
-    
+    public void venderProduto(ProdutosDTO produto) {
+        try 
+        {
+            stm = con.createStatement();
+            stm.executeUpdate("update produtos set status='Vendido' where nome ='" + produto.getNome() + "')");
+            JOptionPane.showMessageDialog(null, "Dados inseridos.");
+        } 
+        catch (SQLException sqle) 
+        {
+            JOptionPane.showMessageDialog(null, "Erro inserindo: " + sqle.getMessage());
+        }
+    }
+
     public ResultSet listarProdutos() {
-           try {
-                stm = con.createStatement();
-            return stm.executeQuery("SELECT * FROM produtos");
-        } catch (SQLException ex) {
+        try 
+        {
+            stm = con.createStatement();
+            return stm.executeQuery("SELECT * FROM produtos where status='Vendido'");
+        } 
+        catch (SQLException ex) 
+        {
             Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         return null;
     }
-      
-  }
-
-
+}
