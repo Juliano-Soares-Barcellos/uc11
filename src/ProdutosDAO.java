@@ -81,9 +81,25 @@ public class ProdutosDAO {
         try 
         {
             stm = con.createStatement();
+            return stm.executeQuery("SELECT * FROM produtos where status='Vendido'");
+        } 
+
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        return null;
+    }
+    
+    
+     public ResultSet listar() {
+        try 
+        {
+            stm = con.createStatement();
             return stm.executeQuery("SELECT * FROM produtos ");
         } 
-//        where status='Vendido'
+
         catch (SQLException ex) 
         {
             Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);

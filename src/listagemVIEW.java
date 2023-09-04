@@ -215,7 +215,7 @@ public class listagemVIEW extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
             model.setNumRows(0);
             
-            ResultSet rs = produtosdao.listarProdutos();
+            ResultSet rs = produtosdao.listar();
             
             while(rs.next()){
                 model.addRow(new Object[]{
