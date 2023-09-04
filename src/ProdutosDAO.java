@@ -42,37 +42,32 @@ public class ProdutosDAO {
             JOptionPane.showMessageDialog(null, "Erro inserindo: " + sqle.getMessage());
         }
     }
-//
-//    public void venderProduto(ProdutosDTO produto) {
-//        try 
-//        {
-//            stm = con.createStatement();
-//            stm.executeUpdate("update produtos set status='VendidAASDo' where nome ='S');");
-//            JOptionPane.showMessageDialog(null, "Dados inseridos.");
-//        } 
-//        catch (SQLException sqle) 
-//        {
-//            JOptionPane.showMessageDialog(null, "Erro inserindo: " + sqle.getMessage());
-//        }
-//    }
+
+    
     public void venderProduto(ProdutosDTO produto) {
     try {
+        
         stm = con.createStatement();
-        
         String sql = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
-        
         PreparedStatement pstmt = con.prepareStatement(sql);
         pstmt.setInt(1, produto.getId());
 
         int rowsAffected = pstmt.executeUpdate();
 
-        if (rowsAffected > 0) {
+        if (rowsAffected > 0)
+        {
             JOptionPane.showMessageDialog(null, "Produto vendido com sucesso.");
-        } else {
+        }
+        else 
+        {
             JOptionPane.showMessageDialog(null, "Produto não encontrado ou não vendido.");
         }
-    } catch (SQLException sqle) {
-        JOptionPane.showMessageDialog(null, "Erro ao vender o produto: " + sqle.getMessage());
+    } 
+    
+    catch (SQLException sqle) 
+    {
+        JOptionPane.showMessageDialog(null, "Erro  " + sqle.getMessage());
+        System.out.println(sqle.getMessage());
     }
 }
 
