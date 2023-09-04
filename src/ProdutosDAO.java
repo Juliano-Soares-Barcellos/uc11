@@ -43,18 +43,34 @@ public class ProdutosDAO {
         }
     }
 
+    
     public void venderProduto(ProdutosDTO produto) {
-        try 
+    try {
+        
+        stm = con.createStatement();
+        String sql = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        pstmt.setInt(1, produto.getId());
+
+        int rowsAffected = pstmt.executeUpdate();
+
+        if (rowsAffected > 0)
         {
-            stm = con.createStatement();
-            stm.executeUpdate("update produtos set status='Vendido' where nome ='" + produto.getNome() + "')");
-            JOptionPane.showMessageDialog(null, "Dados inseridos.");
-        } 
-        catch (SQLException sqle) 
-        {
-            JOptionPane.showMessageDialog(null, "Erro inserindo: " + sqle.getMessage());
+            JOptionPane.showMessageDialog(null, "Produto vendido com sucesso.");
         }
+        else 
+        {
+            JOptionPane.showMessageDialog(null, "Produto não encontrado ou não vendido.");
+        }
+    } 
+    
+    catch (SQLException sqle) 
+    {
+        JOptionPane.showMessageDialog(null, "Erro  " + sqle.getMessage());
+        System.out.println(sqle.getMessage());
     }
+}
+
 
     public ResultSet listarProdutos() {
         try 
@@ -62,6 +78,23 @@ public class ProdutosDAO {
             stm = con.createStatement();
             return stm.executeQuery("SELECT * FROM produtos where status='Vendido'");
         } 
+
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        return null;
+    }
+    
+    
+     public ResultSet listar() {
+        try 
+        {
+            stm = con.createStatement();
+            return stm.executeQuery("SELECT * FROM produtos ");
+        } 
+
         catch (SQLException ex) 
         {
             Logger.getLogger(ProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
